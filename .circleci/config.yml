@@ -8,7 +8,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - py-dependencies-{{ checksum "Pipfile.lock" }}
+          - py-dependencies-{{ checksum "api-server/Pipfile.lock" }}
       - run:
           name: Install Dependencies
           command: |
@@ -19,7 +19,7 @@ jobs:
       - save_cache:
           paths:
             - ./api-server/.venv
-          key: py-dependencies-{{ checksum "Pipfile.lock" }}
+          key: py-dependencies-{{ checksum "api-server/Pipfile.lock" }}
       - run:
           name: Run Static Analysis
           command: |
