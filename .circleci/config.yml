@@ -8,25 +8,25 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - py-dependencies-{{ checksum "api-server/Pipfile.lock" }}
+          - py-dependencies-{{ checksum "api/Pipfile.lock" }}
       - run:
           name: Install Dependencies
           command: |
             sudo pip install pipenv
-            export PIPENV_VENV_IN_PROJECT=~/meetup-pulse/api-server
-            cd api-server
+            export PIPENV_VENV_IN_PROJECT=~/meetup-pulse/api
+            cd api
             pipenv install --dev
       - save_cache:
           paths:
-            - ./api-server/.venv
-          key: py-dependencies-{{ checksum "api-server/Pipfile.lock" }}
+            - ./api/.venv
+          key: py-dependencies-{{ checksum "api/Pipfile.lock" }}
       - run:
           name: Run Static Analysis
           command: |
-            cd api-server
+            cd api
             pipenv run flake8
       - run:
           name: Run Tests
           command: |
-            cd api-server/api_server
+            cd api/api_server
             pipenv run pytest
